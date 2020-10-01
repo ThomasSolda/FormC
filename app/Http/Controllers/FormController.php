@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Form;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class FormController extends Controller
@@ -16,8 +17,10 @@ class FormController extends Controller
      */
     public function index()
     {
-        $forms = DB::table('rosariounificado_analisis.flagrancia_rosario_clipping')->orderBy('id')->get();
-        #$forms = Form::with("flagrancia_rosario_clipping")->paginate(10);
+        #$forms = DB::table('rosariounificado_analisis.flagrancia_rosario_clipping')->orderBy('id')->get();
+
+        $forms = Form::from('rosariounificado_analisis.flagrancia_rosario_clipping');
+        #echo $forms;
         return view("formularios.index", compact("forms"));
     }
 
@@ -44,7 +47,7 @@ class FormController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-          "fecha" => "nullable|string|min:5",
+          "fecha" => "nullable|date",
           "mes" => "nullable|string|min:5",
           "lugar" => "nullable|string|min:5",
           "localidad" => "nullable|string|min:5",
@@ -56,14 +59,14 @@ class FormController extends Controller
           "elementossecuestrados" => "nullable|string|min:5",
           "observaciones" => "nullable|string|min:5",
           "linkdeorigen" => "nullable|string|min:5",
-          "latitud" => "nullable|string|min:5",
-          "longitud" => "nullable|string|min:5",
+          "latitud" => "nullable|number|min:5",
+          "longitud" => "nullable|number|min:5",
           "anio" => "nullable|string|min:5",
           "linkadicional1" => "nullable|string|min:5",
           "linkadicional2" => "nullable|string|min:5",
-          "observaciones2" => "nullable|string|min:5",
+          "observaciones2" => "nullable|string|min:5"
       ]);
-      Form::create($request->only("fecha", "mes","lugar","localidad","barrio","tipodehecho","personasidentificadas","clanasociado","movil","elementossecuestrados","observaciones","linkdeorigen","latitud","longitud","anio","linkadicional1","linkadicional2","observaciones2"));
+      Form::create($request->only("fecha", "mes","lugar","localidad","barrio","tipodehecho","personasidentificadas","clanasociado","movil","elementossecuestrados","observaciones","linkdeorigen","latitud","longitud","anio",'linkadicional1','linkadicional2','observaciones2'));
       return redirect(route("formularios.index"))
           ->with("success", __("¡Formulario creado!"));
     }

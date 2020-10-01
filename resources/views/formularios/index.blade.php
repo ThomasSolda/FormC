@@ -40,7 +40,7 @@
         @forelse($forms as $form)
             <tr>
                 <td class="border px-4 py-2">{{ $form->id }}</td>
-                <td class="border px-4 py-2">{{ $form->fecha }}</td>
+                <td class="border px-4 py-2">{{ date_format($form->fecha, "d/m/Y") }}</td>
                 <td class="border px-4 py-2">{{ $form->mes }}</td>
                 <td class="border px-4 py-2">{{ $form->lugar }}</td>
                 <td class="border px-4 py-2">{{ $form->localidad }}</td>
@@ -54,6 +54,10 @@
                 <td class="border px-4 py-2">{{ $form->latitud }}</td>
                 <td class="border px-4 py-2">{{ $form->longitud }}</td>
                 <td class="border px-4 py-2">{{ $form->anio }}</td>
+                <td class="border px-4 py-2">{{ $form->linkadicional1 }}</td>
+                <td class="border px-4 py-2">{{ $form->linkadicional2 }}</td>
+                <td class="border px-4 py-2">{{ $form->personasidentificadas }}</td>
+                <td class="border px-4 py-2">{{ $form->observaciones2 }}</td>
                 <td class="border px-4 py-2">
                     <a href="{{ route("formularios.edit", ["formulario" => $form]) }}" class="text-blue-400">{{ __("Editar") }}</a> |
                     <a
@@ -82,9 +86,9 @@
     </tbody>
 </table>
 
-@if($forms->count())
+<!-- @if($forms->count())
     <div class="mt-3">
         {{ $forms->links() }}
     </div>
-@endif
+@endif -->
 @endsection
