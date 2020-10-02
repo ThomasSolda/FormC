@@ -18,23 +18,29 @@
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
 <div id="app">
     <header class="bg-blue-900 py-6">
-        <div class="container mx-auto flex justify-between items-center px-6">
+        <div class="container flex items-center">
             <div>
-                <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
+                <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline ml-5">
                     {{ config('app.name', 'Laravel') }}
                 </a>
             </div>
 
             {{-- ADD THIS NAVIGATION OPTION --}}
+              <div class="ml-12">
 
-                <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                    <div class="text-sm lg:flex-grow ml-12">
-                        <a href="{{ route("formularios.index") }}" class="text-white-700 font-semibold text-white py-2 px-4 border hover:bg-green-700 rounded">
-                            {{ __("Formularios") }}
-                        </a>
+                    <div class="w-full block  lg:flex lg:items-center lg:w-auto">
+                        <div class="text-sm ">
+                            <a href="{{ route("formularios.index") }}" class="text-white-700 font-semibold text-white py-2 px-4 border rounded hover:bg-indigo-400">
+                                {{ __("Listado de Noticias") }}
+                            </a>
+                        </div>
+                        <div class="text-sm ml-4">
+                            <a href="{{ route("formularios.create") }}" class="text-white-700 font-semibold text-white py-2 px-4 border rounded hover:bg-indigo-400">
+                                {{ __("Agregar Noticia") }}
+                            </a>
+                        </div>
                     </div>
-                </div>
-
+              </div>
             {{-- END NAVIGATION OPTION --}}
 
         </div>
@@ -54,7 +60,7 @@
         </div>
     @endif
 
-    <div class="container mx-auto px-4">
+    <div class=" ">
         @yield('content')
     </div>
 </div>

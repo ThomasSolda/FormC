@@ -2,16 +2,13 @@
 
 @section("content")
 
-<div class="flex justify-center flex-wrap bg-gray-200 p-4 mt-5">
+<div class="flex justify-center bg-indigo-200 p-4 mt-5">
     <div class="text-center">
         <h1 class="mb-5">{{ __("Listado de noticias") }}</h1>
-        <a href="{{ route("formularios.create") }}" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            {{ __("Nueva noticia") }}
-        </a>
     </div>
 </div>
 
-<table class="border-separate border-2 text-center border-gray-500 mt-3" style="width: 100%">
+<table class="border-separate border-2 text-center border-gray-500 mt-3 responsive" style="width: 100%">
     <thead>
     <tr>
         <th class="px-4 py-2">{{ __("id") }}</th>
@@ -29,8 +26,8 @@
         <th class="px-4 py-2">{{ __("latitud") }}</th>
         <th class="px-4 py-2">{{ __("longitud") }}</th>
         <th class="px-4 py-2">{{ __("anio") }}</th>
-        <th class="px-4 py-2">{{ __("linkadicional1") }}</th>
-        <th class="px-4 py-2">{{ __("linkadicional2") }}</th>
+        <th class="px-4 py-2">{{ __("link_adicional1") }}</th>
+        <th class="px-4 py-2">{{ __("link_adicional2") }}</th>
         <th class="px-4 py-2">{{ __("personasidentificadas") }}</th>
         <th class="px-4 py-2">{{ __("observaciones2") }}</th>
 
@@ -40,7 +37,7 @@
         @forelse($forms as $form)
             <tr>
                 <td class="border px-4 py-2">{{ $form->id }}</td>
-                <td class="border px-4 py-2">{{ date_format($form->fecha, "d/m/Y") }}</td>
+                <td class="border px-4 py-2">{{ $form->fecha }}</td>
                 <td class="border px-4 py-2">{{ $form->mes }}</td>
                 <td class="border px-4 py-2">{{ $form->lugar }}</td>
                 <td class="border px-4 py-2">{{ $form->localidad }}</td>
@@ -54,23 +51,12 @@
                 <td class="border px-4 py-2">{{ $form->latitud }}</td>
                 <td class="border px-4 py-2">{{ $form->longitud }}</td>
                 <td class="border px-4 py-2">{{ $form->anio }}</td>
-                <td class="border px-4 py-2">{{ $form->linkadicional1 }}</td>
-                <td class="border px-4 py-2">{{ $form->linkadicional2 }}</td>
+                <td class="border px-4 py-2">{{ $form->link_adicional1 }}</td>
+                <td class="border px-4 py-2">{{ $form->link_adicional2 }}</td>
                 <td class="border px-4 py-2">{{ $form->personasidentificadas }}</td>
                 <td class="border px-4 py-2">{{ $form->observaciones2 }}</td>
                 <td class="border px-4 py-2">
-                    <a href="{{ route("formularios.edit", ["formulario" => $form]) }}" class="text-blue-400">{{ __("Editar") }}</a> |
-                    <a
-                        href="#"
-                        class="text-red-400"
-                        onclick="event.preventDefault();
-                            document.getElementById('delete-form-{{ $form->id }}-form').submit();"
-                    >{{ __("Eliminar") }}
-                    </a>
-                    <form id="delete-form-{{ $form->id }}-form" action="{{ route("formularios.destroy", ["formulario" => $form->id]) }}" method="POST" class="hidden">
-                        @method("DELETE")
-                        @csrf
-                    </form>
+                    <a href="{{ route("formularios.edit", ["formulario" => $form]) }}" class="text-blue-400">{{ __("Editar") }}</a>
                 </td>
             </tr>
         @empty
@@ -86,9 +72,11 @@
     </tbody>
 </table>
 
-<!-- @if($forms->count())
+@if($forms->count())
     <div class="mt-3">
         {{ $forms->links() }}
     </div>
-@endif -->
+@endif
+
+
 @endsection
