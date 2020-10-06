@@ -23,14 +23,8 @@
         <th class="px-4 py-2">{{ __("movil") }}</th>
         <th class="px-4 py-2">{{ __("observaciones") }}</th>
         <th class="px-4 py-2">{{ __("linkdeorigen") }}</th>
-        <th class="px-4 py-2">{{ __("latitud") }}</th>
-        <th class="px-4 py-2">{{ __("longitud") }}</th>
         <th class="px-4 py-2">{{ __("anio") }}</th>
-        <th class="px-4 py-2">{{ __("link_adicional1") }}</th>
-        <th class="px-4 py-2">{{ __("link_adicional2") }}</th>
         <th class="px-4 py-2">{{ __("personasidentificadas") }}</th>
-        <th class="px-4 py-2">{{ __("observaciones2") }}</th>
-
     </tr>
     </thead>
     <tbody>
@@ -48,15 +42,10 @@
                 <td class="border px-4 py-2">{{ $form->movil }}</td>
                 <td class="border px-4 py-2">{{ $form->observaciones }}</td>
                 <td class="border px-4 py-2">{{ $form->linkdeorigen }}</td>
-                <td class="border px-4 py-2">{{ $form->latitud }}</td>
-                <td class="border px-4 py-2">{{ $form->longitud }}</td>
                 <td class="border px-4 py-2">{{ $form->anio }}</td>
-                <td class="border px-4 py-2">{{ $form->link_adicional1 }}</td>
-                <td class="border px-4 py-2">{{ $form->link_adicional2 }}</td>
                 <td class="border px-4 py-2">{{ $form->personasidentificadas }}</td>
-                <td class="border px-4 py-2">{{ $form->observaciones2 }}</td>
                 <td class="border px-4 py-2">
-                    <a href="{{ route("formularios.edit", ["formulario" => $form]) }}" class="text-blue-400">{{ __("Editar") }}</a>
+                    <a href="{{ route("formularios.edit", ["form" => $form])}}" class="text-blue-400"> {{ __("Editar") }}</a>
                 </td>
             </tr>
         @empty

@@ -17,7 +17,7 @@ class FormController extends Controller
      */
     public function index()
     {
-        $forms = Form::paginate(10);
+        $forms = Form::orderBy('id', 'desc')->paginate(5);
         return view("formularios.index", compact("forms"));
     }
 
@@ -60,12 +60,12 @@ class FormController extends Controller
           "linkdeorigen" => "nullable|string|min:5",
           "latitud" => "nullable|string|min:5",
           "longitud" => "nullable|string|min:5",
-          "anio" => "nullable|string|min:5",
+          "anio" => "nullable|string",
           "link_adicional1" => "nullable|string|min:5",
           "link_adicional2" => "nullable|string|min:5",
           "observaciones2" => "nullable|string|min:5"
       ]);
-      Form::create($request->only("id","fecha", "mes","lugar","localidad","barrio","tipodehecho","personasidentificadas","clanasociado","movil","elementossecuestrados","observaciones","linkdeorigen","latitud","longitud","anio",'link_adicional1','link_adicional2','observaciones2'));
+      Form::create($request->only("id","fecha", "mes","lugar","localidad","barrio","tipodehecho","personasidentificadas","clanasociado","movil","elementossecuestrados","observaciones","linkdeorigen","latitud","longitud","anio","link_adicional1","link_adicional2","observaciones2"));
       return redirect(route("formularios.index"))
           ->with("success", __("¡Formulario creado!"));
     }
@@ -78,11 +78,13 @@ class FormController extends Controller
      */
     public function edit(Form $form)
     {
-       $update = true;
-       $title = __("Editar Formulario");
-       $textButton= __("Actualizar");
-       $route = route("formularios.update", ["formulario" => $form]);
-       return view("formularios.edit",compact("update","title","textButton","route","formulario"));
+      $update = true;
+      $title = __("Editar Formulario");
+      $textButton= __("Actualizar");
+
+      $route = route("formularios.update",["form" => $form]);
+
+      return view("formularios.edit",compact("update","title","textButton","route","form"));
     }
 
     /**
@@ -94,7 +96,34 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form)
     {
+      $this->validate($request, [
+        "id" => "required|int",
+        "fecha" => "nullable|date",
+        "mes" => "nullable|string|min:5",
+        "lugar" => "nullable|string|min:5",
+        "localidad" => "nullable|string|min:5",
+        "barrio" => "nullable|string|min:5",
+        "tipodehecho" => "nullable|string|min:5",
+        "personasidentificadas" => "nullable|string|min:5",
+        "clanasociado" => "nullable|string|min:5",
+        "movil" => "nullable|string|min:5",
+        "elementossecuestrados" => "nullable|string|min:5",
+        "observaciones" => "nullable|string|min:5",
+        "linkdeorigen" => "nullable|string|min:5",
+        "latitud" => "nullable|string|min:5",
+        "longitud" => "nullable|string|min:5",
+        "anio" => "nullable|string",
+        "link_adicional1" => "nullable|string|min:5",
+        "link_adicional2" => "nullable|string|min:5",
+        "observaciones2" => "nullable|string|min:5"
+       ]);
 
+
+       $form->fill($request
+       ->only("id","fecha", "mes","lugar","localidad","barrio","tipodehecho","personasidentificadas","clanasociado","movil","elementossecuestrados","observaciones","linkdeorigen","latitud","longitud","anio","link_adicional1","link_adicional2","observaciones2"))
+       ->save();
+       return back()
+       ->with("success", __("¡Proyecto actualizado!"));
     }
 
     /**
